@@ -1,0 +1,143 @@
+<main class="container py-4">
+  <div class="card shadow-sm mx-auto" style="max-width: 980px">
+    <div class="card-body p-3 p-md-4">
+      <header class="mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span>⚡</span>
+          <h1 class="h4 mb-0">Mando AI</h1>
+        </div>
+        <p class="text-muted mb-0">Enter a prompt and get a response.</p>
+      </header>
+
+      <div class="row g-4">
+        <div class="col-12">
+          <div class="mb-3">
+            <textarea
+              data-testid="prompt-input"
+              [(ngModel)]="prompt"
+              [disabled]="isLoading"
+              placeholder="Type your prompt…"
+              class="form-control"
+              rows="5"
+            ></textarea>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-sm-auto d-grid">
+              <button
+                type="button"
+                data-testid="submit-btn"
+                class="btn btn-primary"
+                (click)="handleSubmit()"
+                [disabled]="isLoading || !prompt.trim()"
+              >
+                <ng-container *ngIf="isLoading; else submitText">
+                  <span class="d-inline-flex align-items-center gap-2">
+                    <span
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Generating response...
+                  </span>
+                </ng-container>
+
+                <ng-template #submitText>Submit</ng-template>
+              </button>
+            </div>
+
+            <div class="col-12 col-sm-auto d-grid">
+              <button
+                type="button"
+                data-testid="clear-btn"
+                class="btn btn-outline-secondary"
+                (click)="handleClear()"
+                [disabled]="isLoading"
+              >
+                Clear
+              </button>
+            </div>
+
+            <div class="col-12 col-sm-auto d-grid" *ngIf="isLoading">
+              <button
+                type="button"
+                data-testid="stop-btn"
+                class="btn btn-outline-danger"
+                (click)="handleStop()"
+              >
+                Stop
+              </button>
+            </div>
+          </div>
+
+          <div class="alert alert-success mb-3" *ngIf="successMessage">
+            {{ successMessage }}
+          </div>
+
+          <div
+            class="alert alert-danger d-flex align-items-center gap-2 mb-3"
+            data-testid="error-alert"
+            *ngIf="error"
+          >
+            <span>⚠️</span>
+            <div>{{ error }}</div>
+          </div>
+
+          <div>
+            <label class="form-label fw-semibold">Response</label>
+            <div
+              class="border rounded-3 p-3 bg-body-tertiary"
+              data-testid="response-display"
+              style="min-height: 140px; white-space: pre-wrap"
+            >
+              <ng-container
+                *ngIf="isLoading; else responseBlock"
+                class="loading"
+              >
+                <span class="text-muted fst-italic">
+                  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </span>
+              </ng-container>
+
+              <ng-template #responseBlock>
+                <ng-container *ngIf="response; else emptyResponse">
+                  {{ response }}
+                </ng-container>
+              </ng-template>
+
+              <ng-template #emptyResponse>
+                <span class="text-muted">Your response will appear here.</span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12" *ngIf="history.length > 0">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h2 class="h5 mb-0">History</h2>
+            <button
+              type="button"
+              data-testid="clear-history-btn"
+              (click)="handleClearHistory()"
+              class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-1"
+            >
+              <span>🗑️</span>
+              Clear
+            </button>
+          </div>
+
+          <div class="list-group">
+            <mat-expansion-panel hideToggle *ngFor="let item of history">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="fw-semibold text-truncate">
+                  {{ prompt }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>{{ item }}</p>
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
