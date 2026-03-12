@@ -1,59 +1,50 @@
-# MandoAI
+# MandoAI (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+AI-powered Angular app that lets you enter a prompt and displays the response returned by a **separate FastAPI backend** (hosted in a different repository).  
+This repo contains **frontend only**.
 
-## Development server
+---
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- Prompt input + submit button
+- Fetches AI responses from a FastAPI API
+- Loading + error handling
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Angular
+- TypeScript
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Prerequisites
 
-```bash
-ng generate --help
-```
+- Node.js 18+ (recommended)
+- npm
+- Angular CLI
+- A running FastAPI backend (from other repo)
 
-## Building
+---
 
-To build the project run:
+## Setup
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 1) Clone and install
 
 ```bash
-ng test
+git clone https://github.com/ArmandoDiazGit/MandoA-Angular-.git
+cd MandoAI
+npm install
 ```
 
-## Running end-to-end tests
+### 2) Start app
 
-For end-to-end (e2e) testing, run:
+``` ng serve ```
+- The app will run at: http://localhost:4200
 
-```bash
-ng e2e
-```
+## Backend Requirements
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- This frontend expects your FastAPI backend to be running and accessible locally.
+- Expected request body example: ``` { "prompt": "Tell me a fun fact about San Francisco" } ```
