@@ -20,6 +20,7 @@ This repo contains **frontend only**.
 
 ---
 
+
 ## Prerequisites
 
 - Node.js 18+ (recommended)
@@ -48,3 +49,6 @@ npm install
 
 - This frontend expects your FastAPI backend to be running and accessible locally.
 - Expected request body example: ``` { "prompt": "Tell me a fun fact about San Francisco" } ```
+
+https://github.com/user-attachments/assets/22cc4782-86b8-4453-876e-0491bd3120e7
+  
