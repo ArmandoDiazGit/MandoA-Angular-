@@ -8,6 +8,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+interface HistoryItem {
+  id: string;
+  prompt: string;
+  response: string;
+}
+
 @Component({
   selector: 'app-mando-ai-component',
   imports: [
@@ -25,7 +31,7 @@ export class MandoAiComponentComponent implements OnDestroy {
   response: string = '';
   successMessage: string = '';
   error: string = '';
-  history: ResponseItem[] = [];
+  history: HistoryItem[] = [];
   expandedHistory: string | null = null;
   isLoading: boolean = false;
 
@@ -43,9 +49,13 @@ export class MandoAiComponentComponent implements OnDestroy {
       )
       .subscribe({
         next: (res: ResponseItem) => {
-          this.isLoading = false;
           this.response = res.response;
-          this.history.unshift(res);
+          this.history.unshift({
+            id: crypto.randomUUID(),
+            prompt: this.prompt,
+            response: res.response,
+          });
+          this.isLoading = false;
         },
         error: (err) => {
           this.isLoading = false;
@@ -73,7 +83,7 @@ export class MandoAiComponentComponent implements OnDestroy {
     this.history = [];
   }
 
-  isHistoryOpen(item: ResponseItem): boolean {
+  isHistoryOpen(item: HistoryItem): boolean {
     return this.expandedHistory === item.id;
   }
 
